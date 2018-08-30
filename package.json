@@ -7,6 +7,7 @@
   "author": "Joel Ibaceta",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.4",
     "eventsource": "^1.0.7",
     "express": "^4.16.3",
     "node-pty": "^0.7.6",

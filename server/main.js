@@ -3,6 +3,10 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+var cors = require('cors');
+app.use(cors());
+
+
 var child_process_collection = {};
 var containers_collection = {};
 
@@ -10,6 +14,8 @@ const fs = require('fs');
 const ffmepg_process = require('./ffmepg_process.js');
 
 const pty = require('./pty.js');
+
+app.use(cors)
 
 server.listen(4000, function() {
 	console.log('Servidor corriendo en http://localhost:4000');
