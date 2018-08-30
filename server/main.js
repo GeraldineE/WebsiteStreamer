@@ -40,11 +40,16 @@ io.sockets.on('connection', function(socket) {
         language = data["language"]
 
         socket.join("container_" + hashcode);
-        const container = new pty.Container(hashcode, language);
-        container.run(function(data){
-            socket.emit("container_" + hashcode, data);
-        });
-        containers_collection[hashcode] = container;
+
+        if (containers_collection[hashcode] == null || containers_collection[hashcode] == undefined) {
+            
+            const container = new pty.Container(hashcode, language);
+            container.run(function(data){
+                io.sockets.emit("container_" + hashcode, data);
+            });
+            containers_collection[hashcode] = container; 
+        }
+        
     });
 
     socket.on('send_data', function(data){
@@ -54,9 +59,13 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('close', function(hashcode){ 
         console.log("Closing : " + hashcode)
-        containers_collection[hashcode].current.write("exit \n");
-        containers_collection[hashcode].current.write("exit \n");
-        containers_collection[hashcode] = null;
+
+        if (containers_collection[hashcode] != undefined) {
+            containers_collection[hashcode].current.write("exit \n");
+            containers_collection[hashcode].current.write("exit \n");
+            containers_collection[hashcode] = null;
+        }
+        
     });
 
 
