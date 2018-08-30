@@ -46,18 +46,17 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('update_file', function(data){
 
+        hashcode = data["hashcode"];
+        title = data["title"];
+        content = data["content"];
+
         var dir = './snippets/' + hashcode;
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, 0744);
         }
 
-        hashcode = data["hashcode"];
-        title = data["title"];
-        content = data["content"];
-
         var path = "snippets/" + hashcode + "/" + title;
  
-        
         fs.writeFile(path, content, { mode: 0o777 }, (err) => {
             if (err) throw err;
             console.log('The file has been saved!');
@@ -77,19 +76,31 @@ io.sockets.on('connection', function(socket) {
 
         socket.join("container_" + hashcode);
 
-        if (containers_collection[hashcode] == null || containers_collection[hashcode] == undefined) {
-            const container = new pty.Container(hashcode, language);
-            container.run(function(data){
-                io.sockets.emit("container_" + hashcode, data);
-            });
-            containers_collection[hashcode] = container; 
+        if (containers_collection[hashcode] == undefined) {
+            start_container(hashcode, language);
         }
         
     });
 
+    function start_container(hashcode, language) {
+        const container = new pty.Container(hashcode, language);
+        container.run(function(data){
+            io.sockets.emit("container_" + hashcode, data);
+        });
+        containers_collection[hashcode] = container; 
+    }
+
     socket.on('send_data', function(data){
         var hashcode = data["hashcode"]; 
-        containers_collection[hashcode].current.write(data['char']);
+        var language = data["language"]
+        
+        if (containers_collection[hashcode] == undefined) {
+            start_container(hashcode, language);
+        } else {
+            containers_collection[hashcode].current.write(data['char']);
+        }
+
+        
     });
 
     socket.on('close', function(hashcode){ 
