@@ -52,7 +52,7 @@ io.sockets.on('connection', function(socket) {
 
         var dir = './snippets/' + hashcode;
         if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, 0744);
+            fs.mkdirSync(dir, 0o777);
         }
 
         var path = "snippets/" + hashcode + "/" + title;
