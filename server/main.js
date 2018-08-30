@@ -6,7 +6,6 @@ var io = require('socket.io')(server);
 var cors = require('cors');
 app.use(cors());
 
-
 var child_process_collection = {};
 var containers_collection = {};
 
@@ -16,6 +15,10 @@ const ffmepg_process = require('./ffmepg_process.js');
 const pty = require('./pty.js');
 
 app.use(cors)
+
+app.get('/', function(req, res) {
+    res.send('It works!');
+  });
 
 server.listen(4000, function() {
 	console.log('Servidor corriendo en http://localhost:4000');
@@ -48,11 +51,11 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('update_file', function(data){
 
-        var dir = __dirname + '/hashcode';
-        if (!path.existsSync(dir)) {
+        var dir = './snippets/' + hashcode;
+        if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, 0744);
         }
-        
+
         hashcode = data["hashcode"];
         title = data["title"];
         content = data["content"];

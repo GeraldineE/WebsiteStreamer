@@ -12,10 +12,13 @@ Container.prototype.isRunning = function() {
     var response = child_process.execSync(bash_if);
 
     console.log("status: " + response.toString());
-    return response.toString() == 'yup';
+    return (response.toString() != 'yup');
+
 };
 
 Container.prototype.run = function(on_data) {
+
+    console.log(this.isRunning());
 
     if (this.isRunning()) {
         command = "docker run --rm --name " + this.hashcode + "-" + this.language + " -v $(pwd)/snippets/" +  hashcode + ":/home/" + hashcode + " -it " + language +  " /bin/bash \n";
@@ -23,12 +26,14 @@ Container.prototype.run = function(on_data) {
         command = "docker attach " + this.hashcode + "-" + this.language + " \n"
     }
 
+
+
     console.log(command);
     const bash = pty.spawn("/bin/bash");
 
     bash.write(command)
     bash.write("cd /home/" + hashcode + "\n")
-    bash.write("clear \n")
+    // bash.write("clear \n")
     
     bash.on('data', (data) => {
         on_data(data);
