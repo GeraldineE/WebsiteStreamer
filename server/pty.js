@@ -23,7 +23,7 @@ Container.prototype.run = function(on_data) {
     if (this.isRunning()) {
         command = "docker attach " + this.hashcode + "-" + this.language + " \n"
     } else {
-        command = "docker run --rm --name " + this.hashcode + "-" + this.language + " -v $(pwd)/snippets/" +  hashcode + ":/home/" + hashcode + " -it " + language +  " /bin/bash \n";
+        command = "docker run --rm --name " + this.hashcode + "-" + this.language + " -v $(pwd)/snippets/" +   this.hashcode + ":/home/" +  this.hashcode + " -it " + this.language +  " /bin/bash \n";
     }
 
 
