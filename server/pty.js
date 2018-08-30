@@ -32,7 +32,7 @@ Container.prototype.run = function(on_data) {
     const bash = pty.spawn("/bin/bash");
 
     bash.write(command)
-    bash.write("cd /home/" + hashcode + "\n")  
+    bash.write("cd /home/" + this.hashcode + "\n")  
     
     bash.on('data', (data) => {
         on_data(data);
