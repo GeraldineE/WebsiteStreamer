@@ -52,12 +52,12 @@ io.sockets.on('connection', function(socket) {
 
         var dir = './snippets/' + hashcode;
         if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, 0o777);
+            fs.mkdirSync(dir);
         }
 
-        var path = "snippets/" + hashcode + "/" + title;
+        var path = "./snippets/" + hashcode + "/" + title;
  
-        fs.writeFile(path, content, { mode: 0o777 }, (err) => {
+        fs.writeFile(path, content, (err) => {
             if (err) throw err;
             console.log('The file has been saved!');
         });
