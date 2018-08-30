@@ -26,8 +26,6 @@ Container.prototype.run = function(on_data) {
         command = "docker run --rm --name " + this.hashcode + "-" + this.language + " -v $(pwd)/snippets/" +   this.hashcode + ":/home/" +  this.hashcode + " -it " + this.language +  " /bin/bash \n";
     }
 
-
-
     console.log(command);
     const bash = pty.spawn("/bin/bash");
 

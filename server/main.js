@@ -80,17 +80,23 @@ io.sockets.on('connection', function(socket) {
 
         if (containers_collection[hashcode] == undefined) {
             start_container(hashcode, language);
+        } else {
+            if (containers_collection[hashcode].language != language) {
+                start_container(hashcode, language);
+            }
         }
         
     });
 
-    
 
     function start_container(hashcode, language) {
+
         const container = new pty.Container(hashcode, language);
+        
         container.run(function(data){
             io.sockets.emit("container_" + hashcode, data);
         });
+
         containers_collection[hashcode] = container; 
     }
 
