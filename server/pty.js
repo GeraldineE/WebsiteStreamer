@@ -10,9 +10,9 @@ Container.prototype.isRunning = function() {
     var bash_if = "if [ $(docker inspect -f '{{.State.Running}}' '" + this.hashcode + "-" + this.language +  "') = 'true' ]; then echo yup; else echo nope; fi";
     var response = child_process.execSync(bash_if);
 
-    console.log("response: " + response);
+    console.log("response: " + response + (response == "yup"));
     
-    return (response == 'yup');
+    return (response == "yup");
 
 };
 
