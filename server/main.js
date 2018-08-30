@@ -1,7 +1,7 @@
 var express = require('express'); 
 var app = express();
 var cors = require('cors');
-
+var mkdirp = require('mkdirp');
 var server = require('http').Server(app);
 var io = require('socket.io')(server, { origins: '*:*'});
 
@@ -51,9 +51,11 @@ io.sockets.on('connection', function(socket) {
         content = data["content"];
 
         var dir = './snippets/' + hashcode;
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir);
-        }
+
+        mkdirp(dir, function (err) {
+            if (err) console.error(err)
+            else console.log('dir created!' + dir)
+        });
 
         var path = "./snippets/" + hashcode + "/" + title;
  
