@@ -33,7 +33,7 @@ Container.prototype.run = function(on_data) {
 
     bash.write(command)
     bash.write("cd /home/" + hashcode + "\n")
-    // bash.write("clear \n")
+    bash.write("clear \n")
     
     bash.on('data', (data) => {
         on_data(data);
