@@ -6,6 +6,9 @@
   "keywords": [],
   "author": "Joel Ibaceta",
   "license": "MIT",
+  "scripts": {
+    "start": "sudo node server/main.js"
+  },
   "dependencies": {
     "cors": "^2.8.4",
     "eventsource": "^1.0.7",
