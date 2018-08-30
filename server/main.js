@@ -1,9 +1,9 @@
 var express = require('express'); 
 var app = express();
 var cors = require('cors');
-app.use(cors());
+
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var io = require('socket.io')(server, { origins: '*:*'});
 
 
 
@@ -18,6 +18,7 @@ const pty = require('./pty.js');
 server.listen(4000, function() {
 	console.log('Servidor corriendo en http://localhost:4000');
 });
+ 
 
 io.sockets.on('connection', function(socket) {
 
