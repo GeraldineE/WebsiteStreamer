@@ -12,7 +12,7 @@ Container.prototype.isRunning = function() {
 
     console.log("response: " + response);
     
-    return (response == "yup");
+    return response.includes("yup");
 
 };
 
