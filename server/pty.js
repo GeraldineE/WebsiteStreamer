@@ -18,9 +18,9 @@ Container.prototype.isRunning = function() {
 Container.prototype.run = function(on_data) {
 
     if (this.isRunning()) {
-        command = "docker run --rm --name " + hashcode + "-" + language + " -v $(pwd)/snippets/" +  hashcode + ":/home/" + hashcode + " -it " + language +  " /bin/bash \n";
+        command = "docker run --rm --name " + this.hashcode + "-" + this.language + " -v $(pwd)/snippets/" +  hashcode + ":/home/" + hashcode + " -it " + language +  " /bin/bash \n";
     } else {
-        command = "docker attach " + hashcode + "-" + language + " \n"
+        command = "docker attach " + this.hashcode + "-" + this.language + " \n"
     }
 
     console.log(command);
@@ -30,7 +30,6 @@ Container.prototype.run = function(on_data) {
     bash.write("cd /home/" + hashcode + "\n")
     bash.write("clear \n")
     
-
     bash.on('data', (data) => {
         on_data(data);
     });

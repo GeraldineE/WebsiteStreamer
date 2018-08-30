@@ -7,8 +7,10 @@
   "author": "Joel Ibaceta",
   "license": "MIT",
   "dependencies": {
+    "eventsource": "^1.0.7",
     "express": "^4.16.3",
     "node-pty": "^0.7.6",
+    "request": "^2.88.0",
     "socket.io": "^2.1.1"
   }
 }
