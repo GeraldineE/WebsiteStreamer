@@ -100,6 +100,19 @@ io.sockets.on('connection', function(socket) {
         
     });
 
+    socket.on('rename_file', function(data){
+        var hashcode = data["hashcode"];
+        var path = "snippets/" + hashcode + "/";
+
+        var previous_path = path + data["previous_name"];
+        var new_path = ath + data["new_name"];
+
+        fs.rename(previous_path, new_path, (err) => {
+            if (err) throw err;
+            console.log('Rename complete!');
+        });
+    });
+
 
 });
 
