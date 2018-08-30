@@ -20,6 +20,7 @@ FFMEPG_Process.prototype.run = function() {
 
     ffmpeg.on('close', (code, signal) => {
         console.log('FFmpeg child process closed, code ' + code + ', signal ' + signal); 
+        
     });
 
     ffmpeg.stdin.on('error', (e) => {
