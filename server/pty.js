@@ -7,7 +7,7 @@ var Container = function (hashcode, language) {
 };
 
 Container.prototype.isRunning = function() {
-    var bash_if = "if [ $(docker inspect -f '{{.State.Running}}' '3sPSaZq6-language') = 'true' ]; then echo yup; else echo nope; fi";
+    var bash_if = "if [ $(docker inspect -f '{{.State.Running}}' '" + this.hashcode + "-" + this.language +  "') = 'true' ]; then echo yup; else echo nope; fi";
     const child_process = require('child_process');
     var response = child_process.execSync(bash_if);
 
