@@ -104,7 +104,7 @@ io.sockets.on('connection', function(socket) {
         var path = "snippets/" + hashcode + "/";
 
         var previous_path = path + data["previous_name"];
-        var new_path = ath + data["new_name"];
+        var new_path = path + data["new_name"];
 
         fs.rename(previous_path, new_path, (err) => {
             if (err) throw err;
