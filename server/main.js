@@ -47,6 +47,12 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('update_file', function(data){
+
+        var dir = __dirname + '/hashcode';
+        if (!path.existsSync(dir)) {
+            fs.mkdirSync(dir, 0744);
+        }
+        
         hashcode = data["hashcode"];
         title = data["title"];
         content = data["content"];
