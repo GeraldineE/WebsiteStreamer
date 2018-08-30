@@ -57,7 +57,7 @@ io.sockets.on('connection', function(socket) {
 
         var path = "snippets/" + hashcode + "/" + title;
         
-        fs.fs.writeFile(path, content, (err) => {
+        fs.writeFile(path, content, (err) => {
             if (err) throw err;
             console.log('The file has been saved!');
         });
