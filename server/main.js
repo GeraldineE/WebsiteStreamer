@@ -88,11 +88,22 @@ io.sockets.on('connection', function(socket) {
         
     });
 
+    socket.on('change-language', function(data){
+        hashcode = data["hashcode"]
+        language = data["language"]
+        if (containers_collection[hashcode] != undefined) {
+            containers_collection[hashcode].current.write("exit \n");
+            containers_collection[hashcode].current.write("exit \n");
+            containers_collection[hashcode] = null;
+        }
+        start_container(hashcode, language);
+    });
+
 
     function start_container(hashcode, language) {
 
         const container = new pty.Container(hashcode, language);
-        
+
         container.run(function(data){
             io.sockets.emit("container_" + hashcode, data);
         });
